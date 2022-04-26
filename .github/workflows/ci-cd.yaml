@@ -10,7 +10,9 @@ on:
 jobs:
  build:
    runs-on: ubuntu-latest
-   working-directory: ./server/
+   defaults:
+     run:
+       working-directory: ./server/
    steps:
       - name: Checkout 
         uses: actions/checkout@v2
