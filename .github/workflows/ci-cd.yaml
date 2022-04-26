@@ -10,6 +10,7 @@ on:
 jobs:
  build:
    runs-on: ubuntu-latest
+   working-directory: ./server/
    steps:
       - name: Checkout 
         uses: actions/checkout@v2
@@ -24,8 +25,8 @@ jobs:
       - name: Build
         uses: docker/build-push-action@v2
         with:
-          context: ./server/
-          file: ./server/Dockerfile
+          context: 
+          file: Dockerfile
           tags: mattermost-preview-image
           
       - name: Delete old docker images (locally)
