@@ -1,20 +1,20 @@
+
 ---
 version: '3.7'
 services:
   mattermost :
     image: mattermost/mattermost-preview
     container_name: mattermostserver
-    ports:
-      - 8080:8065
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.bitchess.entrypoints=websecure"
-      - "traefik.http.routers.bitchess.rule=Host(`matter-server.ddns.net`)"
-      - "traefik.http.routers.bitchess.tls=true"
-      - "traefik.http.routers.bitchess.tls.certresolver=default"
+      - "traefik.http.routers.mattermost.entrypoints=websecure"
+      - "traefik.http.routers.mattermost.rule=Host(`matter-server.ddns.net`)"
+      - "traefik.http.routers.mattermost.tls=true"
+      - "traefik.http.routers.mattermost.tls.certresolver=default"
+      - "traefik.http.services.mattermost.loadbalancer.server.port=8065"
     networks:
       - traefik_proxy
-      
+
 
 
 
@@ -44,12 +44,13 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      
-      
- 
+
+
+
 networks:
   traefik_proxy:
     external:
       name: traefik_proxy
   default:
     driver: bridge
+
