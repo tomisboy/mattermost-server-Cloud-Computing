@@ -68,7 +68,7 @@ resource "null_resource" "softwareconfig" {
    provisioner "remote-exec" {
    inline = [
       "cd /home/ubuntu/mattermostserver",
-      "docker build -t local/mattermostserver:latest .",
+      "#####docker build -t local/mattermostserver:latest .",
       "docker-compose up -d"
     ]
    }
