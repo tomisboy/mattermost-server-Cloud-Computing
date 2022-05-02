@@ -3,7 +3,7 @@ FROM mysql:5.7
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 467B942D3A79BD29
 RUN apt-get update && apt-get install -y ca-certificates
 
-ENV MYSQL_ROOT_PASSWORD=$SECRET-PASS-ROOT
+ENV MYSQL_ROOT_PASSWORD=mostest
 ENV MYSQL_USER=mmuser
 ENV MYSQL_PASSWORD=mostest
 ENV MYSQL_DATABASE=mattermost_test
