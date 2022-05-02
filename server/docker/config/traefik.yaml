@@ -35,7 +35,7 @@ api:
 certificatesResolvers:
   default:
     acme:
-      email: "inf20090@lehre.dhbw-stuttgart.de"
+      email: "inf20068@lehre.dhbw-stuttgart.de"
       storage: "/acme/acme.json"
       caServer: "https://acme-v02.api.letsencrypt.org/directory"
       httpChallenge:
