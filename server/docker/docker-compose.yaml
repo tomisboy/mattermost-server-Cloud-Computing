@@ -2,7 +2,7 @@
 version: '3.7'
 services:
   mattermost :
-    image: local/mattermostserver:latest
+    image: mattermost/mattermost-preview
     container_name: mattermostserver
     ports:
       - 8080:8065
