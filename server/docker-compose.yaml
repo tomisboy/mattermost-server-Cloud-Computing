@@ -3,7 +3,7 @@
 
   services:
     nodetest:
-      image: mattermostserver:latest:latest
+      image: local/mattermostserver:latest
       container_name: mattermostserver
       ports:
         - 80:8065
