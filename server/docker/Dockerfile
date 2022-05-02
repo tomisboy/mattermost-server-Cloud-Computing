@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y ca-certificates
 
 ENV MYSQL_ROOT_PASSWORD=$SECRET-PASS-ROOT
 ENV MYSQL_USER=mmuser
-ENV MYSQL_PASSWORD=$SECRET-PASS
+ENV MYSQL_PASSWORD=mostest
 ENV MYSQL_DATABASE=mattermost_test
 ######
 # sed -i 's/$SECRET-PASS-ROOT/gitsecret/g' Dockerfile
