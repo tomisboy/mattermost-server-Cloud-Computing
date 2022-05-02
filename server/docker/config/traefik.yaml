@@ -1,15 +1,15 @@
 entryPoints:
   web:
     address: ":80"
-#      http:
-#       redirections:
-#         entryPoint:
-#           to: "websecure"
-#           scheme: "https"
-
+    http:
+     redirections:
+       entryPoint:
+         to: "websecure"
+         scheme: "https"
 
   websecure:
     address: ":443"
+
 
 
 providers:
@@ -22,7 +22,7 @@ providers:
 
 log:
   filePath: "/etc/traefik/traefik.log"
-  level: "INFO"
+  level: "DEBUG"
 
 accessLog: 
   filePath: "/etc/traefik/access.log"
