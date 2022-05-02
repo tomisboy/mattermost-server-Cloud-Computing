@@ -44,3 +44,12 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      
+      
+ 
+networks:
+  traefik_proxy:
+    external:
+      name: traefik_proxy
+  default:
+    driver: bridge
