@@ -7,3 +7,21 @@
       container_name: mattermostserver
       ports:
         - 80:8065
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.bitchess.entrypoints=websecure"
+        - "traefik.http.routers.bitchess.rule=Host(`matter-server.ddns.net`)"
+        - "traefik.http.routers.bitchess.tls=true"
+        - "traefik.http.routers.bitchess.tls.certresolver=default"
+
+      networks:
+        - traefik_proxy
+        
+
+  networks:
+    traefik_proxy:
+      external:
+        name: traefik_proxy
+    default:
+      driver: bridge
+   
