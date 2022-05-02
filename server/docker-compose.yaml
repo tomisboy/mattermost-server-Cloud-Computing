@@ -1,0 +1,9 @@
+---
+  version: '3.7'
+
+  services:
+    nodetest:
+      image: mattermostserver:latest:latest
+      container_name: mattermostserver
+      ports:
+        - 80:8065
