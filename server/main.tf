@@ -33,7 +33,8 @@ resource "openstack_compute_instance_v2" "helloworld" {
       "sudo apt update",
       "sudo apt install docker.io -y ",
       "sudo apt install docker-compose -y ",
-      "sudo usermod -aG docker $USER"
+      "sudo usermod -aG docker $USER",
+      "docker network create traefik_proxy"
     ]
   }
 }
