@@ -1,0 +1,42 @@
+entryPoints:
+  web:
+    address: ":80"
+      http:
+       redirections:
+         entryPoint:
+           to: "websecure"
+           scheme: "https"
+
+
+  websecure:
+    address: ":443"
+
+
+providers:
+   docker:
+     network: traefik_proxy
+     exposedByDefault: false
+   file:
+     filename: /etc/traefik/dynamic_conf.yml
+     watch: true
+
+log:
+  filePath: "/etc/traefik/traefik.log"
+  level: "INFO"
+
+accessLog: 
+  filePath: "/etc/traefik/access.log"
+
+api:
+  dashboard: true
+#  insecure: true
+
+
+certificatesResolvers:
+  default:
+    acme:
+      email: "inf20090@lehre.dhbw-stuttgart.de"
+      storage: "/acme/acme.json"
+      caServer: "https://acme-v02.api.letsencrypt.org/directory"
+      httpChallenge:
+        entryPoint: "web"
