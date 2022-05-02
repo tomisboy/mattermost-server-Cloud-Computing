@@ -13,8 +13,8 @@ data "openstack_images_image_v2" "ubuntu" {
 # }
 
 
-resource "openstack_compute_instance_v2" "helloworld" {
-  name        = "1111hello.world"
+resource "openstack_compute_instance_v2" "mattermostserver" {
+  name        = "mattermostserver"
   image_id    = data.openstack_images_image_v2.ubuntu.id
   flavor_name = "m1.nano"
   key_pair    = "talpert"
@@ -41,7 +41,7 @@ resource "openstack_compute_instance_v2" "helloworld" {
 
 
 output "NewIP" {
-value = openstack_compute_instance_v2.helloworld.access_ip_v4
+value = openstack_compute_instance_v2.mattermostserver.access_ip_v4
 }
 
 
@@ -55,7 +55,7 @@ value = openstack_compute_instance_v2.helloworld.access_ip_v4
 resource "null_resource" "softwareconfig" {
   connection {
     type = "ssh"
-    host = openstack_compute_instance_v2.helloworld.access_ip_v4
+    host = openstack_compute_instance_v2.mattermostserver.access_ip_v4
     user = "ubuntu"
     port = 22
   }
