@@ -19,7 +19,7 @@ resource "openstack_compute_instance_v2" "mattermostserver" {
   flavor_name = "m1.small"
   key_pair    = "talpert"
   metadata    = { this = "if this work, that would be wonderful" }
-
+  security_groups = ["mattermost-server" ]
 
   provisioner "remote-exec" {
     # define SSH connection for provisioner
