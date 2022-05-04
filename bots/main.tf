@@ -14,12 +14,12 @@ data "openstack_images_image_v2" "ubuntu" {
 
 
 resource "openstack_compute_instance_v2" "mattermostserver" {
-  name        = "mattermostserver"
+  name        = "mattermost-bots"
   image_id    = data.openstack_images_image_v2.ubuntu.id
   flavor_name = "m1.small"
   key_pair    = "talpert"
   metadata    = { this = "if this work, that would be wonderful" }
-  security_groups = ["mattermost-server" ]
+  security_groups = ["mattermost-bots", "default" ]
 
   provisioner "remote-exec" {
     # define SSH connection for provisioner
@@ -34,7 +34,7 @@ resource "openstack_compute_instance_v2" "mattermostserver" {
       "sudo apt install docker.io -y ",
       "sudo apt install docker-compose -y ",
       "sudo usermod -aG docker $USER",
-      "sudo docker network create traefik_proxy"
+      "#sudo docker network create traefik_proxy"
     ]
   }
 }
@@ -62,18 +62,19 @@ resource "null_resource" "softwareconfig" {
 
    provisioner "file" {
    source      = "./docker"
-   destination = "/home/ubuntu/mattermostserver"
+   destination = "/home/ubuntu/bots"
    }
 
    provisioner "remote-exec" {
    inline = [
-      "cd /home/ubuntu/mattermostserver",
+      "#cd /home/ubuntu/mattermostserver",
       "#####docker build -t local/mattermostserver:latest .",
-      "docker-compose up -d"
+      "#docker-compose up -d"
     ]
    }
 
 }
+
 
 
 
