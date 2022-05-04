@@ -13,7 +13,7 @@ data "openstack_images_image_v2" "ubuntu" {
 # }
 
 
-resource "openstack_compute_instance_v2" "mattermostserver" {
+resource "openstack_compute_instance_v2" "mattermost-bots" {
   name        = "mattermost-bots"
   image_id    = data.openstack_images_image_v2.ubuntu.id
   flavor_name = "m1.small"
@@ -34,14 +34,16 @@ resource "openstack_compute_instance_v2" "mattermostserver" {
       "sudo apt install docker.io -y ",
       "sudo apt install docker-compose -y ",
       "sudo usermod -aG docker $USER",
-      "#sudo docker network create traefik_proxy"
+      "sudo docker network create botnetwork",
+      "sudo apt install unzip -y"
+
     ]
   }
 }
 
 
 output "NewIP" {
-value = openstack_compute_instance_v2.mattermostserver.access_ip_v4
+value = openstack_compute_instance_v2.mattermost-bots.access_ip_v4
 }
 
 
@@ -55,7 +57,7 @@ value = openstack_compute_instance_v2.mattermostserver.access_ip_v4
 resource "null_resource" "softwareconfig" {
   connection {
     type = "ssh"
-    host = openstack_compute_instance_v2.mattermostserver.access_ip_v4
+    host = openstack_compute_instance_v2.mattermost-bots.access_ip_v4
     user = "ubuntu"
     port = 22
   }
@@ -67,9 +69,14 @@ resource "null_resource" "softwareconfig" {
 
    provisioner "remote-exec" {
    inline = [
-      "#cd /home/ubuntu/mattermostserver",
-      "#####docker build -t local/mattermostserver:latest .",
-      "#docker-compose up -d"
+      "cd bots/mattermost-bots/build/libs/",
+      "unzip *",
+      "cd ~/bots/mattermost-bots",
+      "docker build -t local/bot .",
+      "cd ~/bots/cleverserver",
+      "docker build -t local/cleverserver .",
+      "cd ~/bots",
+      "docker-compose up -d"
     ]
    }
 
