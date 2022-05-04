@@ -1,3 +1,9 @@
+
+
+# Local .terraform directories
+**/.terraform/*
+
+
 HELP.md
 .gradle
 build/
