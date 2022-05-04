@@ -2,7 +2,7 @@
 
 # Local .terraform directories
 **/.terraform/*
-
+*.tfstate
 
 HELP.md
 .gradle
