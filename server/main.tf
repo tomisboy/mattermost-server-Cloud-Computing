@@ -7,12 +7,6 @@ data "openstack_images_image_v2" "ubuntu" {
     key = "value"
   }
 }
-
-# output "out" {
-# value = data.openstack_images_image_v2.ubuntu
-# }
-
-
 resource "openstack_compute_instance_v2" "mattermostserver" {
   name        = "mattermostserver"
   image_id    = data.openstack_images_image_v2.ubuntu.id
@@ -22,12 +16,11 @@ resource "openstack_compute_instance_v2" "mattermostserver" {
   security_groups = ["mattermost-server" ]
 
   provisioner "remote-exec" {
-    # define SSH connection for provisioner
     connection {
       type = "ssh"
       host = self.access_ip_v4
       user = "ubuntu"
-      # private_key = file("~/.ssh/id_rsa")
+      private_key = "${file("~/.ssh/id_rsa")}"
     }
     inline = [
       "sudo apt update",
@@ -38,19 +31,9 @@ resource "openstack_compute_instance_v2" "mattermostserver" {
     ]
   }
 }
-
-
 output "NewIP" {
 value = openstack_compute_instance_v2.mattermostserver.access_ip_v4
 }
-
-
-
-
-
-
-
-
 
 resource "null_resource" "softwareconfig" {
   connection {
@@ -68,11 +51,9 @@ resource "null_resource" "softwareconfig" {
    provisioner "remote-exec" {
    inline = [
       "cd /home/ubuntu/mattermostserver",
-      "#####docker build -t local/mattermostserver:latest .",
       "docker-compose up -d"
     ]
    }
-
 }
 
 
