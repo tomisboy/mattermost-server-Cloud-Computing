@@ -15,10 +15,7 @@ services:
     networks:
       - traefik_proxy
 
-
-
-
-  traefik:
+traefik:
     image: traefik
     container_name: traefik
     volumes:
@@ -44,8 +41,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-
-
 
 networks:
   traefik_proxy:
