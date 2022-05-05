@@ -5,6 +5,7 @@ services:
   mattermost :
     image: mattermost/mattermost-preview
     container_name: mattermostserver
+    restart: always
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.mattermost.entrypoints=websecure"
@@ -28,16 +29,9 @@ traefik:
       - TZ=Europe/Berlin
     restart: always
     command: --api
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.dashboard.entrypoints=web"
-      - "traefik.http.routers.dashboard.rule=Host(`matter-server.ddns.net`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
-      - "traefik.http.routers.dashboard.service=api@internal"
-
     networks:
       - traefik_proxy
       - default
-
     ports:
       - "80:80"
       - "443:443"
